@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unlearn Your Pain — Understanding TMS & Mind-Body Pain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Custom Properties ─────────────────────────────────── */
+    :root {
+      --sand:    #f5f0e8;
+      --sage:    #8a9a7b;
+      --sage-dark: #6d7d60;
+      --clay:    #d4c4a8;
+      --earth:   #6b5e4f;
+      --water:   #8fadb5;
+      --water-light: #c4dae0;
+      --blush:   #e8d5c4;
+      --white:   #faf8f4;
+      --text:    #3a3028;
+      --muted:   #7a6e64;
+      --border:  rgba(107,94,79,0.12);
+
+      --r-sm:  12px;
+      --r-md:  18px;
+      --r-lg:  24px;
+
+      --section-pad: 100px 24px;
+      --max-w: 1100px;
+    }
+
+    /* ─── Reset & Base ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--earth);
+    }
+
+    h2 { font-size: clamp(2rem, 4vw, 2.75rem); margin-bottom: 1rem; }
+    h3 { font-size: clamp(1.25rem, 2.5vw, 1.6rem); }
+
+    p { margin-bottom: 1.1rem; color: var(--muted); }
+    p:last-child { margin-bottom: 0; }
+
+    a { color: inherit; text-decoration: none; }
+
+    section { padding: var(--section-pad); }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ─── Scroll Reveal ─────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── Navigation ────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 68px;
+      background: rgba(250, 248, 244, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: box-shadow 0.3s ease;
+    }
+    .nav.scrolled {
+      box-shadow: 0 1px 24px rgba(107,94,79,0.1);
+    }
+
+    .nav-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--earth);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--sage); }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--earth);
+      line-height: 1;
+    }
+
+    @media (max-width: 768px) {
+      .nav { padding: 0 20px; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        position: absolute;
+        top: 68px; left: 0; right: 0;
+        background: rgba(250,248,244,0.97);
+        backdrop-filter: blur(14px);
+        padding: 12px 0 20px;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; text-align: center; }
+      .nav-links a {
+        display: block;
+        padding: 12px 24px;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* ─── Hero ──────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+      background: linear-gradient(160deg, var(--white) 0%, var(--sand) 60%, var(--blush) 100%);
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(143,173,181,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 10% 80%, rgba(138,154,123,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 780px;
+    }
+
+    .hero-overline {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-inner h1 {
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 700;
+      color: var(--earth);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+    .hero-inner h1 em {
+      font-style: italic;
+      color: var(--sage);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--sage);
+      color: #fff;
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      padding: 14px 32px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+      box-shadow: 0 4px 20px rgba(138,154,123,0.3);
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: var(--sage-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(138,154,123,0.38);
+    }
+    .btn-arrow { font-size: 1.1rem; }
+
+    /* ─── TMS Section ───────────────────────────────────────── */
+    #tms { background: var(--white); }
+
+    .tms-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+      margin-top: 56px;
+    }
+
+    .tms-text p:first-of-type::first-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--sage);
+      float: left;
+      line-height: 0.78;
+      margin-right: 8px;
+      margin-top: 6px;
+    }
+    .tms-text p { font-size: 1.02rem; line-height: 1.85; }
+
+    .quote-card {
+      background: linear-gradient(145deg, var(--sand), var(--blush));
+      border-radius: var(--r-lg);
+      padding: 48px 40px 40px;
+      position: relative;
+      border: 1px solid var(--border);
+    }
+    .quote-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 6rem;
+      line-height: 0.6;
+      color: var(--sage);
+      opacity: 0.5;
+      display: block;
+      margin-bottom: 16px;
+    }
+    .quote-card blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--earth);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .quote-card cite {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-style: normal;
+    }
+
+    @media (max-width: 768px) {
+      .tms-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* ─── Key Principles ────────────────────────────────────── */
+    #principles {
+      background: var(--sand);
+    }
+
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 56px;
+    }
+
+    .principle-card {
+      border-radius: var(--r-md);
+      padding: 40px 32px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    .principle-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 16px 40px rgba(107,94,79,0.14);
+    }
+    .principle-card.sage-bg  { background: linear-gradient(145deg, #c4d1ba, #b5c4a8); }
+    .principle-card.water-bg { background: linear-gradient(145deg, #b8d4da, #a8c8d0); }
+    .principle-card.blush-bg { background: linear-gradient(145deg, #f0ddd0, #e8d0c0); }
+
+    .principle-icon {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 20px;
+    }
+    .principle-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 12px;
+      color: var(--earth);
+    }
+    .principle-card p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    @media (max-width: 900px) {
+      .principles-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .principles-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── Quiz ──────────────────────────────────────────────── */
+    #quiz { background: var(--white); }
+
+    .quiz-intro {
+      max-width: 680px;
+      margin-bottom: 48px;
+    }
+
+    .quiz-statement {
+      background: var(--sand);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .quiz-statement-text {
+      font-size: 0.97rem;
+      color: var(--text);
+      flex: 1;
+      min-width: 200px;
+    }
+    .quiz-pills {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .pill {
+      padding: 6px 18px;
+      border-radius: 50px;
+      border: 1.5px solid var(--clay);
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+    .pill:hover {
+      border-color: var(--sage);
+      color: var(--sage);
+    }
+    .pill.selected {
+      background: var(--sage);
+      border-color: var(--sage);
+      color: #fff;
+    }
+
+    .quiz-result {
+      display: none;
+      opacity: 0;
+      margin-top: 40px;
+      background: linear-gradient(145deg, var(--sand), var(--blush));
+      border-radius: var(--r-lg);
+      padding: 44px 40px;
+      text-align: center;
+      border: 1px solid var(--border);
+      transition: opacity 0.5s ease;
+    }
+    .quiz-result.visible {
+      display: block;
+    }
+    .quiz-result.fade-in {
+      opacity: 1;
+    }
+    .quiz-result-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--sage);
+      margin-bottom: 8px;
+    }
+    .quiz-result h3 {
+      font-size: 1.7rem;
+      color: var(--earth);
+      margin-bottom: 16px;
+    }
+    .quiz-result p {
+      font-size: 1rem;
+      max-width: 560px;
+      margin: 0 auto 16px;
+    }
+    .quiz-disclaimer {
+      font-size: 0.8rem !important;
+      color: var(--muted) !important;
+      font-style: italic;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      margin-top: 16px !important;
+    }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--sage);
+      border: 1.5px solid var(--sage);
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 10px 26px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.22s;
+      margin-top: 20px;
+    }
+    .btn-outline:hover {
+      background: var(--sage);
+      color: #fff;
+    }
+
+    /* ─── Daily Review ──────────────────────────────────────── */
+    #daily { background: var(--sand); }
+
+    .daily-card {
+      max-width: 660px;
+      margin: 56px auto 0;
+      background: linear-gradient(145deg, var(--sand), #ede5d8, var(--blush));
+      border-radius: var(--r-lg);
+      padding: 52px 48px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 40px rgba(107,94,79,0.08);
+    }
+
+    .daily-date {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 32px;
+      display: block;
+    }
+
+    .daily-streak {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(138,154,123,0.15);
+      border-radius: 50px;
+      padding: 4px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--sage-dark);
+      margin-bottom: 24px;
+    }
+
+    .daily-list {
+      list-style: none;
+      counter-reset: reminder;
+    }
+    .daily-list li {
+      counter-increment: reminder;
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(107,94,79,0.1);
+      font-size: 0.97rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .daily-list li:last-child { border-bottom: none; }
+    .daily-list li::before {
+      content: counter(reminder);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--sage);
+      min-width: 22px;
+      padding-top: 1px;
+    }
+
+    .daily-btn-wrap {
+      margin-top: 36px;
+      text-align: center;
+    }
+
+    .daily-complete-btn {
+      background: var(--sage);
+      color: #fff;
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 13px 30px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s;
+      box-shadow: 0 4px 18px rgba(138,154,123,0.28);
+    }
+    .daily-complete-btn:hover:not(:disabled) {
+      background: var(--sage-dark);
+      transform: translateY(-2px);
+    }
+    .daily-complete-btn:disabled {
+      opacity: 0.7;
+      cursor: default;
+    }
+
+    .daily-confirm {
+      display: none;
+      margin-top: 18px;
+      font-size: 0.95rem;
+      color: var(--sage-dark);
+      font-weight: 600;
+      animation: fadeInUp 0.4s ease forwards;
+    }
+    .daily-confirm.show { display: block; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .daily-card { padding: 36px 24px; }
+    }
+
+    /* ─── FAQ ───────────────────────────────────────────────── */
+    #faq { background: var(--white); }
+
+    .faq-list {
+      max-width: 760px;
+      margin: 56px auto 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--earth);
+      cursor: pointer;
+      text-align: left;
+      transition: color 0.2s;
+    }
+    .faq-question:hover { color: var(--sage); }
+
+    .faq-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--clay);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--muted);
+      transition: transform 0.3s ease, border-color 0.2s, color 0.2s;
+      line-height: 1;
+    }
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      border-color: var(--sage);
+      color: var(--sage);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.42s ease;
+    }
+    .faq-answer-inner {
+      padding: 0 0 24px;
+      font-size: 0.97rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    /* ─── Resources ─────────────────────────────────────────── */
+    #resources { background: var(--sand); }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 28px;
+      margin-top: 56px;
+    }
+
+    .book-card {
+      background: var(--white);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .book-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 36px rgba(107,94,79,0.12);
+    }
+
+    .book-cover {
+      width: 100%;
+      height: 170px;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+      position: relative;
+    }
+    .book-cover-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.3;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    .book-cover-1 { background: linear-gradient(145deg, #7a9070, #a8bc96); }
+    .book-cover-2 { background: linear-gradient(145deg, #7a9caa, #a0c0c8); }
+    .book-cover-3 { background: linear-gradient(145deg, #8a7060, #b09080); }
+    .book-cover-4 { background: linear-gradient(145deg, #c0a090, #d8bca8); }
+
+    .book-info { padding: 20px; }
+    .book-author {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 6px;
+    }
+    .book-info h3 {
+      font-size: 1.1rem;
+      color: var(--earth);
+      margin-bottom: 8px;
+    }
+    .book-info p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ─── Journal ───────────────────────────────────────────── */
+    #journal { background: var(--white); }
+
+    .journal-card {
+      max-width: 700px;
+      margin: 56px auto 0;
+      background: #fff;
+      border-radius: var(--r-lg);
+      padding: 52px 48px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 40px rgba(107,94,79,0.07);
+    }
+
+    .journal-prompt-wrap {
+      background: var(--sand);
+      border-radius: var(--r-sm);
+      padding: 28px 32px;
+      margin-bottom: 28px;
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+    }
+    .journal-prompt {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--earth);
+      line-height: 1.6;
+      transition: opacity 0.35s ease;
+    }
+    .journal-prompt.fading { opacity: 0; }
+
+    .journal-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .journal-textarea {
+      width: 100%;
+      min-height: 200px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 18px 20px;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.97rem;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--white);
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+      line-height: 1.75;
+    }
+    .journal-textarea:focus { border-color: var(--sage); }
+    .journal-textarea::placeholder { color: var(--clay); }
+
+    .word-count {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 10px;
+      text-align: right;
+    }
+
+    @media (max-width: 600px) {
+      .journal-card { padding: 32px 20px; }
+    }
+
+    /* ─── Footer ────────────────────────────────────────────── */
+    footer {
+      background: var(--earth);
+      color: rgba(250,248,244,0.7);
+      text-align: center;
+      padding: 52px 24px;
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--sand);
+      margin-bottom: 10px;
+    }
+    .footer-credit {
+      font-size: 0.88rem;
+      margin-bottom: 20px;
+      color: rgba(250,248,244,0.65);
+    }
+    .footer-disclaimer {
+      font-size: 0.78rem;
+      max-width: 560px;
+      margin: 0 auto;
+      color: rgba(250,248,244,0.45);
+      line-height: 1.7;
+    }
+    .footer-divider {
+      width: 40px;
+      height: 1px;
+      background: rgba(250,248,244,0.2);
+      margin: 20px auto;
+    }
+
+    /* ─── Section headers ───────────────────────────────────── */
+    .section-header { margin-bottom: 0; }
+    .section-header .section-label { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAVIGATION ════════════════════════════════════════ -->
+  <nav class="nav" id="mainNav">
+    <a href="#hero" class="nav-brand">Unlearn Your Pain</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#tms">What is TMS</a></li>
+      <li><a href="#principles">Key Ideas</a></li>
+      <li><a href="#quiz">Do I Have TMS?</a></li>
+      <li><a href="#daily">Daily Review</a></li>
+      <li><a href="#resources">Resources</a></li>
+      <li><a href="#journal">Journal</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══ HERO ══════════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-inner">
+      <span class="hero-overline reveal">The Mind-Body Connection</span>
+      <h1 class="reveal" style="transition-delay:0.1s">
+        Your pain is <em>real</em>.<br>Its cause may surprise you.
+      </h1>
+      <p class="hero-sub reveal" style="transition-delay:0.2s">
+        Dr. John Sarno discovered that most chronic pain is not caused by structural damage — it is the brain's response to repressed emotion, and understanding this is the beginning of recovery.
+      </p>
+      <a href="#tms" class="btn reveal" style="transition-delay:0.3s">
+        Begin Learning <span class="btn-arrow">↓</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ WHAT IS TMS ════════════════════════════════════════ -->
+  <section id="tms">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Understanding the Condition</span>
+        <h2>What is Tension Myositis Syndrome?</h2>
+      </div>
+      <div class="tms-grid">
+        <div class="tms-text reveal">
+          <p>
+            Tension Myositis Syndrome — or TMS — is a term coined by Dr. John E. Sarno, a physician and professor at NYU Langone Medical Center, to describe a condition in which the brain produces real, physical pain as a protective response to overwhelming emotional stress. The pain is not imagined, not fabricated, and not "all in your head" in any dismissive sense. It is physiologically real. But its origin is psychological.
+          </p>
+          <p>
+            Sarno's central insight was that the brain reduces blood flow — and therefore oxygen — to muscles, nerves, and tendons in order to create a distraction. When the psyche is flooded with emotions it cannot safely process — rage, grief, guilt, shame, deep anxiety — the unconscious mind generates physical pain as a way of keeping attention away from those feelings. The pain is real. The mechanism is real. But the structural cause that most patients are told they have often is not.
+          </p>
+          <p>
+            What makes TMS remarkable is how it resolves. Unlike most medical conditions, TMS responds profoundly to knowledge. When a patient genuinely accepts that their pain is psychologically generated — not through willpower or positive thinking, but through true intellectual and emotional understanding — the brain loses its reason to maintain the symptom, and the pain fades. Sarno called this the "knowledge cure."
+          </p>
+        </div>
+        <div class="reveal" style="transition-delay:0.15s">
+          <div class="quote-card">
+            <span class="quote-mark">&ldquo;</span>
+            <blockquote>
+              The purpose of the pain is to divert attention from what's going on emotionally. Once you understand that, recovery can begin.
+            </blockquote>
+            <cite>— Dr. John E. Sarno</cite>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ KEY PRINCIPLES ════════════════════════════════════ -->
+  <section id="principles">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Core Concepts</span>
+        <h2>Three Key Principles</h2>
+      </div>
+      <div class="principles-grid">
+        <div class="principle-card sage-bg reveal">
+          <span class="principle-icon">🧠</span>
+          <h3>The Emotional Origin</h3>
+          <p>Pain originates from repressed emotions — especially unconscious rage — not from tissue damage, disc herniations, or structural abnormalities. The body is the messenger of what the mind cannot speak.</p>
+        </div>
+        <div class="principle-card water-bg reveal" style="transition-delay:0.12s">
+          <span class="principle-icon">💡</span>
+          <h3>Knowledge is the Cure</h3>
+          <p>Understanding the psychological basis of TMS removes the brain's power to maintain the symptom. You don't fight the pain — you illuminate its source. Insight, not medication or surgery, is the pathway.</p>
+        </div>
+        <div class="principle-card blush-bg reveal" style="transition-delay:0.24s">
+          <span class="principle-icon">🌿</span>
+          <h3>Resume Living Fully</h3>
+          <p>Return to all normal physical activity without fear. Avoidance — of exercise, movement, and life — reinforces the pain cycle and signals to the brain that the strategy is working. Move. Live. Trust your body.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SELF-ASSESSMENT QUIZ ══════════════════════════════ -->
+  <section id="quiz">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Self-Reflection Tool</span>
+        <h2>Do I Have TMS?</h2>
+      </div>
+      <div class="quiz-intro reveal">
+        <p>
+          Dr. Sarno identified consistent personality traits and life patterns in his TMS patients — characteristics that create the conditions for the unconscious mind to generate pain as a coping strategy. Use this self-reflection tool to explore whether your experience fits those patterns. This is not a medical diagnosis.
+        </p>
+      </div>
+
+      <div id="quizStatements"></div>
+
+      <div class="quiz-result" id="quizResult">
+        <div class="quiz-result-label" id="resultLabel"></div>
+        <h3 id="resultTitle"></h3>
+        <p id="resultBody"></p>
+        <p class="quiz-disclaimer">This is a self-reflection tool, not a medical diagnosis. Please consult a healthcare provider familiar with mind-body medicine for personalized guidance.</p>
+        <button class="btn-outline" id="retakeBtn">↺ Retake Assessment</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ DAILY REVIEW ══════════════════════════════════════ -->
+  <section id="daily">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Sarno's Daily Practice</span>
+        <h2>The Daily Reminders</h2>
+      </div>
+      <p class="reveal" style="max-width:640px; margin-top: 12px;">
+        Sarno asked his patients to read a set of key reminders every day — not as affirmations, but as a practice of keeping the mind focused on the psychological reality of TMS, rather than slipping back into fear of physical causes.
+      </p>
+
+      <div class="daily-card reveal">
+        <span class="daily-date" id="dailyDate"></span>
+        <div class="daily-streak" id="dailyStreak" style="display:none"></div>
+
+        <ol class="daily-list">
+          <li>The pain is caused by TMS, not a structural abnormality.</li>
+          <li>The direct reason for the pain is mild oxygen deprivation.</li>
+          <li>TMS is a harmless condition, caused by repressed emotions.</li>
+          <li>The principal emotion is unconscious rage.</li>
+          <li>TMS exists only to distract my attention from the emotions.</li>
+          <li>Since my back is basically normal, there is nothing to fear.</li>
+          <li>Therefore, physical activity is not dangerous.</li>
+          <li>I must resume all normal physical activity.</li>
+          <li>I will not be intimidated by the pain.</li>
+          <li>I will shift my attention from the pain to emotional issues.</li>
+          <li>I intend to be in control — not my unconscious mind.</li>
+          <li>I must think psychological at all times, not physical.</li>
+        </ol>
+
+        <div class="daily-btn-wrap">
+          <button class="daily-complete-btn" id="dailyBtn">Mark today's review complete</button>
+          <div class="daily-confirm" id="dailyConfirm">Day reviewed ✓ — come back tomorrow.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ════════════════════════════════════════════════ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Clearing the Doubts</span>
+        <h2>Common Questions &amp; Doubts</h2>
+      </div>
+
+      <div class="faq-list reveal">
+
+        <div class="faq-item">
+          <button class="faq-question">
+            But my MRI shows a herniated disc / bulging disc.
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Sarno pointed out that imaging abnormalities are extremely common in people with zero pain. Studies consistently show that large proportions of asymptomatic adults have disc herniations, bulging discs, and other findings visible on MRI. Meanwhile, many people in severe, chronic pain have completely normal scans. Structural findings are often incidental — present in the image, but not the cause of the suffering.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Is this just "thinking away" the pain? Is it placebo?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              No. TMS theory proposes a real physiological mechanism: the brain reducing oxygen delivery to tissues, creating genuine physical pain. Accepting the diagnosis isn't positive thinking — it's removing the psychological conditions that sustain the pain cycle. The process requires honest confrontation with buried emotions, which is neither easy nor passive. The outcomes reported across thousands of patients go well beyond what placebo typically produces.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            My doctor says I need surgery. Should I ignore that advice?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Sarno never advised ignoring serious medical conditions. He strongly recommended ruling out dangerous pathology — fractures, tumors, infections, cauda equina syndrome — with a qualified physician. TMS is a diagnosis arrived at after serious pathology has been excluded. If your doctor has identified a genuinely dangerous structural condition, that deserves appropriate medical attention. TMS applies to the vast majority of chronic pain cases where no such danger is found.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            I've had this pain for years. Can TMS really explain chronic pain?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Yes — in fact, chronicity is one of the hallmarks of TMS. True structural injuries heal, typically within weeks or a few months. Pain that persists for years, migrates between locations, waxes and wanes with stress, and hasn't responded to conventional treatment is far more consistent with a mind-body process than with ongoing structural damage. Sarno's most dramatic recoveries often involved people who had suffered for decades.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Do I need to see a therapist to recover?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Some people recover simply by reading Sarno's books — the intellectual acceptance of the diagnosis is sufficient. Others benefit from working with a TMS-informed therapist, particularly if they carry significant trauma, deeply ingrained fear-avoidance patterns, or difficulty accessing their emotional life. There is no single right path. The common thread is moving attention from the physical to the psychological, and no longer living in fear of the body.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            What about other symptoms beyond back pain?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Sarno expanded his theory to include a wide range of conditions he called "TMS equivalents" — symptoms that serve the same psychological function as musculoskeletal pain. These include tension headaches and migraines, irritable bowel syndrome, fibromyalgia, skin conditions like eczema and psoriasis, repetitive stress injuries, anxiety and depression, and others. As awareness of one symptom grows and it loses its distracting power, the unconscious may shift to another — a pattern Sarno called "the symptom imperative."
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ RECOMMENDED READING ═══════════════════════════════ -->
+  <section id="resources">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">The Literature</span>
+        <h2>Recommended Reading</h2>
+      </div>
+      <div class="books-grid">
+
+        <div class="book-card reveal">
+          <div class="book-cover book-cover-1">
+            <div class="book-cover-title">Healing Back Pain</div>
+          </div>
+          <div class="book-info">
+            <div class="book-author">Dr. John E. Sarno</div>
+            <h3>Healing Back Pain</h3>
+            <p>The foundational text. Sarno's clearest, most accessible introduction to TMS — the book that changed thousands of lives on its own.</p>
+          </div>
+        </div>
+
+        <div class="book-card reveal" style="transition-delay:0.1s">
+          <div class="book-cover book-cover-2">
+            <div class="book-cover-title">The Mindbody Prescription</div>
+          </div>
+          <div class="book-info">
+            <div class="book-author">Dr. John E. Sarno</div>
+            <h3>The Mindbody Prescription</h3>
+            <p>Expands the TMS framework beyond back pain to a full range of common conditions — from migraines to gastrointestinal disorders.</p>
+          </div>
+        </div>
+
+        <div class="book-card reveal" style="transition-delay:0.2s">
+          <div class="book-cover book-cover-3">
+            <div class="book-cover-title">The Divided Mind</div>
+          </div>
+          <div class="book-info">
+            <div class="book-author">Dr. John E. Sarno</div>
+            <h3>The Divided Mind</h3>
+            <p>Sarno's most comprehensive work — a deep exploration of the unconscious mind's role in physical symptoms, with contributions from several colleagues.</p>
+          </div>
+        </div>
+
+        <div class="book-card reveal" style="transition-delay:0.3s">
+          <div class="book-cover book-cover-4">
+            <div class="book-cover-title">Unlearn Your Pain</div>
+          </div>
+          <div class="book-info">
+            <div class="book-author">Dr. Howard Schubiner</div>
+            <h3>Unlearn Your Pain</h3>
+            <p>A structured, practical workbook with exercises, writing prompts, and a step-by-step program for rewiring the nervous system's pain response.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ JOURNALING TOOL ════════════════════════════════════ -->
+  <section id="journal">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Emotional Exploration</span>
+        <h2>Reflective Journaling</h2>
+      </div>
+      <p class="reveal" style="max-width:600px; margin-top:12px;">
+        Sarno encouraged patients to write — freely and honestly — about the emotions, pressures, and life experiences they tended to suppress. There is no right way to do this. Write without editing yourself.
+      </p>
+
+      <div class="journal-card reveal">
+        <div class="journal-prompt-wrap">
+          <p class="journal-prompt" id="journalPrompt"></p>
+        </div>
+
+        <div class="journal-controls">
+          <span style="font-size:0.8rem; color:var(--muted); font-weight:400;">Today's prompt</span>
+          <button class="btn-outline" id="newPromptBtn" style="margin-top:0; padding:8px 20px; font-size:0.82rem;">
+            New Prompt ↻
+          </button>
+        </div>
+
+        <textarea
+          class="journal-textarea"
+          id="journalTextarea"
+          placeholder="Write freely. No one will see this but you..."
+          spellcheck="false"
+        ></textarea>
+
+        <div class="word-count" id="wordCount">0 words</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-brand">Unlearn Your Pain</div>
+    <p class="footer-credit">Inspired by the work of Dr. John E. Sarno (1923–2017)</p>
+    <div class="footer-divider"></div>
+    <p class="footer-disclaimer">
+      This site is for informational and educational purposes only and does not constitute medical advice. Always consult a qualified healthcare professional for diagnosis and treatment of any medical condition.
+    </p>
+  </footer>
+
+  <!-- ═══ JAVASCRIPT ════════════════════════════════════════ -->
+  <script>
+    /* ─── Navigation ─────────────────────────────────────── */
+    const nav = document.getElementById('mainNav');
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      navToggle.textContent = open ? '✕' : '☰';
+    });
+
+    // Close mobile nav on link click
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.textContent = '☰';
+      });
+    });
+
+    /* ─── Scroll Reveal ──────────────────────────────────── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ─── Quiz ───────────────────────────────────────────── */
+    const quizStatements = [
+      "I would describe myself as a perfectionist.",
+      "I often put others' needs before my own.",
+      "I tend to worry a lot or feel anxious.",
+      "I have a strong inner critic — I'm hard on myself.",
+      "I avoid conflict or confrontation, even when I'm upset.",
+      "I've been told I'm 'too responsible' or 'too conscientious.'",
+      "My pain started during or shortly after a stressful life event.",
+      "My pain moves around to different locations in my body.",
+      "I've had multiple diagnoses or treatments that didn't help.",
+      "Physical exams or imaging have not found a clear structural cause.",
+      "I sometimes feel pain flare up when I'm stressed, not when I'm active.",
+      "I tend to suppress anger or other 'negative' emotions."
+    ];
+
+    const answers = new Array(quizStatements.length).fill(null);
+    const statementsContainer = document.getElementById('quizStatements');
+
+    function buildQuiz() {
+      statementsContainer.innerHTML = '';
+      answers.fill(null);
+
+      quizStatements.forEach((text, i) => {
+        const row = document.createElement('div');
+        row.className = 'quiz-statement reveal';
+
+        const label = document.createElement('span');
+        label.className = 'quiz-statement-text';
+        label.textContent = text;
+
+        const pills = document.createElement('div');
+        pills.className = 'quiz-pills';
+
+        [['Yes', 2], ['Somewhat', 1], ['No', 0]].forEach(([label_text, value]) => {
+          const btn = document.createElement('button');
+          btn.className = 'pill';
+          btn.textContent = label_text;
+          btn.dataset.value = value;
+          btn.dataset.index = i;
+          btn.addEventListener('click', () => {
+            pills.querySelectorAll('.pill').forEach(p => p.classList.remove('selected'));
+            btn.classList.add('selected');
+            answers[i] = parseInt(btn.dataset.value);
+            checkQuizComplete();
+          });
+          pills.appendChild(btn);
+        });
+
+        row.appendChild(label);
+        row.appendChild(pills);
+        statementsContainer.appendChild(row);
+        revealObserver.observe(row);
+      });
+
+      const result = document.getElementById('quizResult');
+      result.classList.remove('visible', 'fade-in');
+      result.style.display = 'none';
+    }
+
+    function checkQuizComplete() {
+      if (answers.every(a => a !== null)) {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      const score = answers.reduce((sum, v) => sum + v, 0);
+      const result = document.getElementById('quizResult');
+      const label = document.getElementById('resultLabel');
+      const title = document.getElementById('resultTitle');
+      const body  = document.getElementById('resultBody');
+
+      let labelText, titleText, bodyText;
+
+      if (score >= 18) {
+        labelText = 'Score ' + score + ' / 24';
+        titleText = 'Strongly Consistent with TMS';
+        bodyText  = 'Your profile closely matches the personality patterns and pain characteristics that Dr. Sarno identified in his TMS patients. Learning about TMS in depth — through Sarno\'s books or a structured program — could be very valuable for you.';
+      } else if (score >= 10) {
+        labelText = 'Score ' + score + ' / 24';
+        titleText = 'Moderately Consistent with TMS';
+        bodyText  = 'You share several traits commonly seen in TMS patients. It is worth exploring further through Sarno\'s books or by consulting a physician familiar with mind-body medicine.';
+      } else {
+        labelText = 'Score ' + score + ' / 24';
+        titleText = 'Less Typical of TMS';
+        bodyText  = 'While TMS cannot be ruled out — it presents in many ways — your profile is less typical of the patterns Sarno described. Consider consulting a healthcare provider to explore other possible explanations for your symptoms.';
+      }
+
+      label.textContent = labelText;
+      title.textContent = titleText;
+      body.textContent  = bodyText;
+
+      result.style.display = 'block';
+      requestAnimationFrame(() => {
+        result.classList.add('visible');
+        requestAnimationFrame(() => result.classList.add('fade-in'));
+      });
+
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.getElementById('retakeBtn').addEventListener('click', buildQuiz);
+
+    buildQuiz();
+
+    /* ─── Daily Review ───────────────────────────────────── */
+    const dailyDateEl  = document.getElementById('dailyDate');
+    const dailyStreakEl = document.getElementById('dailyStreak');
+    const dailyBtn     = document.getElementById('dailyBtn');
+    const dailyConfirm = document.getElementById('dailyConfirm');
+
+    function todayStr() {
+      const d = new Date();
+      return d.toISOString().slice(0, 10);
+    }
+
+    function formatDisplayDate() {
+      return new Date().toLocaleDateString('en-US', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+    }
+
+    dailyDateEl.textContent = formatDisplayDate();
+
+    function loadDailyState() {
+      try {
+        const raw = localStorage.getItem('tms-review');
+        return raw ? JSON.parse(raw) : { lastDate: null, streak: 0 };
+      } catch { return { lastDate: null, streak: 0 }; }
+    }
+
+    function saveDailyState(state) {
+      localStorage.setItem('tms-review', JSON.stringify(state));
+    }
+
+    function renderDailyState() {
+      const state = loadDailyState();
+      const today = todayStr();
+
+      if (state.streak > 0) {
+        dailyStreakEl.textContent = '🔥 ' + state.streak + '-day streak';
+        dailyStreakEl.style.display = 'inline-flex';
+      }
+
+      if (state.lastDate === today) {
+        dailyBtn.disabled = true;
+        dailyBtn.textContent = 'Reviewed today ✓';
+        dailyConfirm.classList.add('show');
+      }
+    }
+
+    dailyBtn.addEventListener('click', () => {
+      const state = loadDailyState();
+      const today = todayStr();
+
+      if (state.lastDate === today) return;
+
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toISOString().slice(0, 10);
+
+      if (state.lastDate === yesterdayStr) {
+        state.streak += 1;
+      } else {
+        state.streak = 1;
+      }
+
+      state.lastDate = today;
+      saveDailyState(state);
+
+      dailyBtn.disabled = true;
+      dailyBtn.textContent = 'Reviewed today ✓';
+      dailyConfirm.classList.add('show');
+
+      dailyStreakEl.textContent = '🔥 ' + state.streak + '-day streak';
+      dailyStreakEl.style.display = 'inline-flex';
+    });
+
+    renderDailyState();
+
+    /* ─── FAQ Accordion ──────────────────────────────────── */
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item   = btn.closest('.faq-item');
+        const answer = item.querySelector('.faq-answer');
+        const isOpen = item.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(el => {
+          el.classList.remove('open');
+          el.querySelector('.faq-answer').style.maxHeight = '0';
+        });
+
+        if (!isOpen) {
+          item.classList.add('open');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    /* ─── Journaling Tool ────────────────────────────────── */
+    const journalPrompts = [
+      "What emotions do I find most difficult to feel or express? When did I first learn to push them down?",
+      "Think of a recent moment when you felt angry but didn't say anything. What did you do with that anger?",
+      "What pressures do you place on yourself that you would never place on someone you love?",
+      "Describe a relationship in your life where you consistently put the other person's needs first. How does that feel?",
+      "What would you say to the people in your life if you knew there would be no consequences?",
+      "Is there something you have never forgiven yourself for? Write about it as if speaking to a trusted friend.",
+      "What did you learn about expressing emotions as a child? What was safe to feel, and what wasn't?",
+      "Describe the last time your body felt tense, tight, or in pain. What was happening in your life at that moment?",
+      "Who or what in your life makes you feel most pressured, trapped, or resentful — and why is it hard to admit that?",
+      "Write a letter to your pain. Ask it what it's trying to protect you from. Then let it answer.",
+      "What parts of yourself do you hide from others to keep the peace or earn approval?",
+      "If you were allowed to be completely selfish for one day — to put yourself first without guilt — what would you do?"
+    ];
+
+    let currentPromptIndex = Math.floor(Math.random() * journalPrompts.length);
+    const promptEl = document.getElementById('journalPrompt');
+    const newPromptBtn = document.getElementById('newPromptBtn');
+    const textarea = document.getElementById('journalTextarea');
+    const wordCountEl = document.getElementById('wordCount');
+
+    promptEl.textContent = journalPrompts[currentPromptIndex];
+
+    newPromptBtn.addEventListener('click', () => {
+      promptEl.classList.add('fading');
+      setTimeout(() => {
+        currentPromptIndex = (currentPromptIndex + 1) % journalPrompts.length;
+        promptEl.textContent = journalPrompts[currentPromptIndex];
+        promptEl.classList.remove('fading');
+      }, 350);
+    });
+
+    textarea.addEventListener('input', () => {
+      const text = textarea.value.trim();
+      const count = text === '' ? 0 : text.split(/\s+/).length;
+      wordCountEl.textContent = count + (count === 1 ? ' word' : ' words');
+    });
+  </script>
+</body>
+</html>
