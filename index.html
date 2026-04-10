@@ -14,14 +14,14 @@
       --bg-2:      #1c1712;
       --bg-3:      #252018;
       --bg-card:   #1e1914;
-      --text:      #ece6da;
-      --muted:     #9a8c7d;
-      --faint:     #534840;
-      --accent:    #c87848;
-      --accent-l:  #e09868;
+      --text:      #f0ebe0;
+      --muted:     #c4b8a8;
+      --faint:     #8a7a6a;
+      --accent:    #d4844e;
+      --accent-l:  #e8a070;
       --gold:      #c49858;
-      --border:    rgba(236,230,218,0.08);
-      --border-a:  rgba(200,120,72,0.22);
+      --border:    rgba(236,230,218,0.16);
+      --border-a:  rgba(212,132,78,0.4);
     }
 
     /* ── Reset ──────────────────────────────────────────────────── */
@@ -128,10 +128,12 @@
       font-family: 'Lora', serif;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--muted);
-      transition: color 0.2s;
+      color: var(--text);
+      opacity: 0.7;
+      transition: color 0.2s, opacity 0.2s;
       position: relative;
     }
+    .nav-links a:hover { opacity: 1; }
     .nav-links a::after {
       content: '';
       position: absolute;
@@ -436,8 +438,8 @@
     .choice-btn {
       padding: 7px 19px;
       border-radius: 2px;
-      border: 1px solid var(--border);
-      background: transparent;
+      border: 1px solid rgba(236,230,218,0.28);
+      background: rgba(236,230,218,0.05);
       color: var(--muted);
       font-family: 'Lora', serif;
       font-size: 0.77rem;
@@ -448,6 +450,7 @@
     .choice-btn:hover {
       border-color: var(--accent);
       color: var(--accent);
+      background: rgba(212,132,78,0.08);
     }
     .choice-btn.sel {
       background: var(--accent);
@@ -505,8 +508,8 @@
       align-items: center;
       gap: 8px;
       background: transparent;
-      border: 1px solid var(--border);
-      color: var(--muted);
+      border: 1px solid rgba(236,230,218,0.28);
+      color: var(--text);
       font-family: 'Lora', serif;
       font-size: 0.75rem;
       letter-spacing: 0.12em;
